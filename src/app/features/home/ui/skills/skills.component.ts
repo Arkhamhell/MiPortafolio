@@ -3,33 +3,32 @@ import { SectionTitleComponent } from '../../../../shared/ui/section-title/secti
 import { SKILL_GROUPS, type SkillGroup } from '../../../../shared/constants/portfolio.constants';
 
 @Component({
-  selector: 'app-skills',
+  selector: 'app-stack',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SectionTitleComponent],
   template: `
-    <section id="skills" class="py-28 bg-white dark:bg-gray-950 transition-colors duration-300">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="stack" class="py-28 bg-bg-subtle">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <app-section-title
-          title="Habilidades"
-          subtitle="Tecnologías con las que trabajo día a día"
+          number="02"
+          filename="stack.json"
+          title="Herramientas con las que construyo."
         />
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           @for (group of skillGroups; track group.category) {
-            <div class="bg-gray-50 dark:bg-gray-900 rounded-2xl p-7 border border-gray-200 dark:border-gray-800 hover:border-indigo-200 dark:hover:border-indigo-800 transition-colors duration-300">
-              <!-- Category header -->
-              <div class="flex items-center gap-3 mb-6">
-                <span class="text-2xl" aria-hidden="true">{{ group.icon }}</span>
-                <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">
-                  {{ group.category }}
-                </h3>
+            <div class="bg-surface rounded-xl p-6 border border-border hover:border-accent/30 transition-colors duration-300">
+              <!-- Cabecera tarjeta -->
+              <div class="mb-5">
+                <p class="font-mono text-xs text-accent mb-1">[ {{ group.label }} ]</p>
+                <h3 class="text-lg font-bold text-text-heading">{{ group.category }}</h3>
               </div>
 
-              <!-- Skills badges -->
-              <div class="flex flex-wrap gap-2.5">
+              <!-- Tags monospace -->
+              <div class="flex flex-wrap gap-2">
                 @for (skill of group.skills; track skill.name) {
-                  <span class="px-3 py-1.5 text-sm font-medium rounded-lg {{ group.badgeClass }}">
+                  <span class="font-mono text-xs px-2.5 py-1 border border-border text-text-muted rounded hover:border-accent hover:text-accent transition-colors duration-200 cursor-default">
                     {{ skill.name }}
                   </span>
                 }
@@ -39,7 +38,7 @@ import { SKILL_GROUPS, type SkillGroup } from '../../../../shared/constants/port
         </div>
       </div>
     </section>
-  `
+  `,
 })
 export class SkillsComponent {
   protected readonly skillGroups: SkillGroup[] = SKILL_GROUPS;

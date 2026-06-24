@@ -1,66 +1,61 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { SectionTitleComponent } from '../../../../shared/ui/section-title/section-title.component';
-import { PLACEHOLDER_PROJECTS, type Project } from '../../../../shared/constants/portfolio.constants';
+import { ProjectCardComponent } from '../../../projects/ui/project-card/project-card.component';
+import { PROJECTS, type Project } from '../../../../shared/constants/portfolio.constants';
+
+type FilterKey = 'all' | 'live' | 'in-progress' | 'coming-soon';
 
 @Component({
   selector: 'app-projects-preview',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, SectionTitleComponent],
+  imports: [SectionTitleComponent, ProjectCardComponent],
   template: `
-    <section id="projects" class="py-28 bg-white dark:bg-gray-950 transition-colors duration-300">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="projects" class="py-28 bg-bg-subtle">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <app-section-title
-          title="Proyectos"
-          subtitle="Trabajos destacados y proyectos en desarrollo"
+          number="03"
+          filename="proyectos/"
+          title="Lo que he construido, construyo y construiré."
         />
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          @for (project of projects; track project.id) {
-            <article class="group bg-gray-50 dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 overflow-hidden hover:border-indigo-200 dark:hover:border-indigo-800 hover:shadow-lg hover:shadow-indigo-500/8 hover:-translate-y-1 transition-all duration-300">
-              <!-- Card image area -->
-              <div class="h-44 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 flex items-center justify-center relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10"></div>
-                <div class="absolute inset-0 [background-image:linear-gradient(rgba(99,102,241,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.06)_1px,transparent_1px)] [background-size:2rem_2rem]"></div>
-                <span class="relative px-3.5 py-1.5 text-xs font-semibold bg-indigo-100 dark:bg-indigo-900/60 text-indigo-600 dark:text-indigo-400 rounded-full border border-indigo-200 dark:border-indigo-700">
-                  Próximamente
-                </span>
-              </div>
-
-              <div class="p-6">
-                <h3 class="text-base font-bold text-gray-900 dark:text-gray-100 mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors duration-200">
-                  {{ project.title }}
-                </h3>
-                <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">
-                  {{ project.description }}
-                </p>
-                <div class="flex flex-wrap gap-2">
-                  @for (tech of project.techStack; track tech) {
-                    <span class="px-2.5 py-1 text-xs font-medium bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-lg border border-gray-200 dark:border-gray-700">
-                      {{ tech }}
-                    </span>
-                  }
-                </div>
-              </div>
-            </article>
+        <!-- Filtros -->
+        <div class="flex flex-wrap gap-2 mb-10">
+          @for (filter of filters; track filter.key) {
+            <button
+              (click)="activeFilter.set(filter.key)"
+              [class]="activeFilter() === filter.key
+                ? 'font-mono text-xs px-4 py-2 rounded border border-accent text-accent bg-accent/10'
+                : 'font-mono text-xs px-4 py-2 rounded border border-border text-text-muted hover:border-border-hover hover:text-text-body transition-colors duration-200'"
+            >
+              {{ filter.label }} {{ filter.count }}
+            </button>
           }
         </div>
 
-        <!-- View all CTA -->
-        <div class="text-center">
-          <a routerLink="/projects"
-             class="inline-flex items-center gap-2 px-6 py-3 text-indigo-600 dark:text-indigo-400 font-semibold hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-xl border border-indigo-200 dark:border-indigo-800 transition-all duration-200 hover:-translate-y-0.5">
-            Ver todos los proyectos
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </a>
+        <!-- Grid de proyectos -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          @for (project of filteredProjects(); track project.id) {
+            <app-project-card [project]="project" />
+          }
         </div>
       </div>
     </section>
-  `
+  `,
 })
 export class ProjectsPreviewComponent {
-  protected readonly projects: Project[] = PLACEHOLDER_PROJECTS;
+  protected readonly activeFilter = signal<FilterKey>('all');
+
+  protected readonly filteredProjects = computed<Project[]>(() => {
+    const filter = this.activeFilter();
+    if (filter === 'all') return PROJECTS;
+    return PROJECTS.filter(p => p.status === filter);
+  });
+
+  protected readonly filters = [
+    { key: 'all' as FilterKey, label: 'Todos', count: PROJECTS.length },
+    { key: 'in-progress' as FilterKey, label: 'En proceso', count: PROJECTS.filter(p => p.status === 'in-progress').length },
+    { key: 'live' as FilterKey, label: 'Terminados', count: PROJECTS.filter(p => p.status === 'live').length },
+    { key: 'coming-soon' as FilterKey, label: 'Por llegar', count: PROJECTS.filter(p => p.status === 'coming-soon').length },
+  ];
 }
