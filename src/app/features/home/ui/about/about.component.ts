@@ -19,11 +19,11 @@ import { SectionTitleComponent } from '../../../../shared/ui/section-title/secti
           <!-- Texto izquierda -->
           <div class="space-y-5">
             <p class="text-text-body text-lg leading-relaxed">
-              Soy ingeniero full-stack con <strong class="text-text-heading font-semibold">3 años</strong> de experiencia en diseñando y
+              Soy ingeniero full-stack con <strong class="text-text-heading font-semibold">+3 años</strong> de experiencia en diseñando y
               mantenimiento de sistemas a nivel enterprise.
             </p>
             <p class="text-text-body leading-relaxed">
-              Me obsesionan los detalles que no se ven: latencia baja, tipos estrictos, despliegues sin drama y código
+              Me obsesionan los detalles que no se ven: latencia baja, tipos estrictos, despliegues óptimos y código
               que el siguiente dev agradece leer.
             </p>
             <div class="flex items-center gap-2.5 pt-2">
@@ -76,7 +76,7 @@ import { SectionTitleComponent } from '../../../../shared/ui/section-title/secti
               </p>
               <div class="pl-4 space-y-0.5">
                 <p><span class="text-accent">"area"</span><span class="text-text-muted">: </span><span class="text-text-body">"IA aplicada"</span><span class="text-text-muted">,</span></p>
-                <p><span class="text-accent">"diplomado"</span><span class="text-text-muted">: </span><span class="text-text-body">"ago 2025"</span><span class="text-text-muted">,</span></p>
+                <p><span class="text-accent">"diplomado"</span><span class="text-text-muted">: </span><span class="text-text-body">"ago 2026"</span><span class="text-text-muted">,</span></p>
                 <p><span class="text-accent">"tools"</span><span class="text-text-muted">: [</span><span class="text-warn">"Claude"</span><span class="text-text-muted">, </span><span class="text-warn">"Gemini"</span><span class="text-text-muted">]</span></p>
               </div>
 

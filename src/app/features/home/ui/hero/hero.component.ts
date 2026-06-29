@@ -34,8 +34,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 
         <!-- Subtítulo -->
         <p class="text-text-body text-lg md:text-xl max-w-lg mb-10 leading-relaxed">
-          Construyo sistemas desde base de datos hasta su presentación —
-          y cada vez más, hasta el modelo.
+          +3 años construyendo software de calidad de manera end to end.
         </p>
 
         <!-- CTAs -->

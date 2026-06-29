@@ -17,8 +17,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
               Construyendo con IA,<br>no solo aprendiéndola.
             </h2>
             <p class="text-text-body max-w-xl leading-relaxed">
-              Actualmente en diplomado de IA aplicada. Integro Claude y Gemini en proyectos reales —
-              en el trabajo y en mis proyectos personales.
+              Actualmente en diplomado de IA aplicada. Integro Claude y Gemini en proyectos reales.
             </p>
           </div>
         </div>

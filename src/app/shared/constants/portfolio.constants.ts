@@ -58,7 +58,7 @@ export const SKILL_GROUPS: SkillGroup[] = [
       { name: 'SCSS' },
       { name: 'HTML5' },
       { name: 'React' },
-      { name: 'NextJS' },
+      { name: 'Next.js' },
     ],
   },
   {
@@ -118,9 +118,9 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 8,
-    title: 'AI Dev Assistant',
-    description: 'Asistente de desarrollo con IA integrado en el flujo de trabajo. Usa Claude y Gemini para generación de código, revisiones técnicas y automatización de tareas repetitivas.',
-    techStack: ['Claude', 'Gemini', 'TypeScript', 'Angular'],
+    title: 'Market Intelligence Agent',
+    description: 'Un agente de IA que recopila, analiza y sintetiza información de múltiples fuentes en tiempo real para generar insights accionables sobre tendencias de mercado. Construido con Claude + MCP (Model Context Protocol) para coordinación inteligente de datos.',
+    techStack: ['Next.js', 'Node.js', 'MCP', 'PostgreSQL' , 'Redis' , 'WebScraping'],
     status: 'coming-soon',
     progress: 40,
     year: '2026'
